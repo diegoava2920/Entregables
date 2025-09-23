@@ -1,23 +1,17 @@
 
 def persona(func):
-    def wrapper (user, *args):
-        print(f"{user.name} | { user.age}")
-        result = func(user, *args)
+    def wrapper (*args, **kwargs):
+        print(f"Funcion: {func.__name__} | Arguments: {args} | Keyword Arguments: {kwargs}")
+        result = func(*args, **kwargs)
+        print (f"El retorno de la funcion va a ser: {result}")
         return result
     return wrapper
     
-class User:
-    def __init__(self, name, age):
-        self.name= name
-        self.age= age
-        pass
 
-    @persona
-    def saludo(self):
-        saludo = "Hola, mucho gusto"
+@persona
+def saludo(name, age, pais):
+        saludo = (f"Hola, mucho gusto, soy {name}, tengo {age} años y soy de {pais}")
         return saludo
 
-
-Diego = User("Diego", 25)
-print (Diego.saludo())
+print (saludo("Diego", 25, pais="CostaRica" ))
 
