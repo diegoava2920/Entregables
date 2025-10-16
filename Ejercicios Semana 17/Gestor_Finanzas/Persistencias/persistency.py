@@ -29,3 +29,7 @@ def read_csv_file(file_path):
     return rows#Devuelve el dicionario de listas 
 
 
+
+
+
+

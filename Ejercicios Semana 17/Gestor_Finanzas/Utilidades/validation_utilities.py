@@ -13,7 +13,8 @@ today = datetime.today() #Formato para la fecha
 def ask_info_popup(message, new_title, format , list):
 
     while True:#While que se mantiene corriendo mientras que sea verdadero
-        entry = sg.popup_get_text(message, new_title)#Variable que recibe del popup_text el texto que se va a revisar
+        new_info = sg.popup_get_text(message, new_title)#Variable que recibe del popup_text el texto que se va a revisar
+        entry = new_info.strip()
         if entry is None:#Si el texto agregado no existe o no se agrego nada
             sg.popup("No se ingreso nueva entrada")#Se genera un popup con mensaje de error
             return None#Retorna un non
@@ -33,7 +34,8 @@ def ask_info_popup(message, new_title, format , list):
 #Funcion revisar la informacion agregada por el usuario en inputs, validar que la informacion agregada cumpla con los 
 # formatos y que no este vacio, recibe como parametro el valor a analiza, el patron del formato y el nombre del key del input
 #Puede retornar o un string o un none
-def ask_info_input(value, format_pattern, field_name) -> str | None:
+def ask_info_input(new_info, format_pattern, field_name) -> str | None:
+    value = new_info.strip()
     if not value:#Si el valor esta vacio
         sg.popup_ok(f"No se ingresó ningún valor para {field_name}.")#Generea un popop de error
         return None#Retoran un none
