@@ -1,0 +1,72 @@
+-- SQLite
+CREATE TABLE costumer (
+    id INT PRIMARY KEY,
+    phone_number INT NOT NULL,
+    name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE address(
+    id INT PRIMARY KEY,
+    costumerid INT REFERENCES costumer(id),
+    adressname VARCHAR(25)
+);
+
+CREATE TABLE item (
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    price INT NOT NULL
+);
+
+CREATE TABLE recipe(
+    id INT PRIMARY KEY,
+    costumerid INT REFERENCES costumer(id),
+    addressid INT REFERENCES address(id),
+    deliveryTime VARCHAR(25) NOT NULL
+);
+
+
+CREATE TABLE recipe_item (
+    repiceid VARCHAR(25) REFERENCES recipe(id),
+    itemid INT REFERENCES item,
+    amount INT NOT NULL,
+    specialRequest VARCHAR(25)
+);
+
+
+INSERT INTO costumer (id, phone_number, name)
+VALUES
+    (1, 1234567890, 'Alice'),
+    (2, 9876543210, 'Bob'),
+    (3, 5551234567, 'Claire');
+
+
+INSERT INTO item (id, name, price)
+VALUES
+    (101, 'Cheeseburger', 8),
+    (102, 'Fries', 3),
+    (103, 'Pizza', 12),
+    (104, 'Salad', 6),
+    (105, 'Water', 1);
+
+INSERT INTO address(id, costumerid, adressname)
+VALUES (1, 1 , '123 Main St'),
+        (2, 2, '456 Elm St'),
+        (3, 3, '789 Oak St'),
+        (4, 3, '464 Georgia St');
+
+INSERT INTO recipe (id, costumerid, addressid, deliveryTime)
+VALUES
+    (1, 1, 1, '6:00 PM'),
+    (2, 2, 2, '7:30 PM'),
+    (3, 3, 3, '12:00 PM'),
+    (4, 3, 4, '5:00 PM');
+
+
+INSERT INTO recipe_item (repiceid, itemid, amount, specialRequest)
+VALUES
+    (1, 101, 2, 'No onions'),
+    (1, 102, 1, 'Extra ketchup'),
+    (2, 103, 1, 'Extra cheese'),
+    (2, 102, 2, 'None'),
+    (3, 104, 1, 'No croutons'),
+    (4, 105, 1, 'None');

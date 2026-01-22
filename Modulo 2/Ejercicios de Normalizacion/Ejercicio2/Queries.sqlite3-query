@@ -1,0 +1,93 @@
+-- SQLite
+CREATE TABLE company (
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    policies VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE owner (
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    phone INT NOT NULL
+);
+
+CREATE TABLE make(
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE color(
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE model(
+    id INT PRIMARY KEY,
+    makeid INT REFERENCES make(id),
+    colorid INT REFERENCES color(id),
+    name VARCHAR(25) NOT NULL,
+    years INT NOT NULL
+);
+
+CREATE TABLE car(
+    id INT PRIMARY KEY,
+    modelid INT REFERENCES model(id),
+    vin VARCHAR(25)
+);
+
+CREATE TABLE car_owner(
+    id INT PRIMARY KEY,
+    ownerid INT REFERENCES owner(id),
+    carid INT REFERENCES car(id)
+);
+
+CREATE TABLE company_owner(
+    id INT PRIMARY KEY,
+    ownerid INT REFERENCES owner(id),
+    companyid INT REFERENCES company(id)
+);
+
+-- SQLite
+
+INSERT INTO company (id , name, policies)
+    VALUES (1, 'ABC Insurance', 'POL12345'),
+            (2, 'XYZ Insurance', 'POL54321'),
+            (3, 'DEF Insurance', 'POL67890'),
+            (4, 'GHI Insurance', 'POL98765');
+
+INSERT INTO owner (id, name, phone)
+    VALUES (101, 'Alice', 1234567890),
+            (102, 'Bob', 9876543210),
+            (103, 'Claire', 5551234567),
+            (104, 'Dave', 1112223333);
+
+INSERT INTO color (id, name)
+    VALUES (1, 'Silver'),
+            (2, 'Blue'),
+            (3, 'Red');
+
+INSERT INTO make (id, name)
+    VALUES (1, 'Honda'),
+            (2, 'Chevrolete');
+
+INSERT INTO model( id, makeid, colorid, name, years)
+    VALUES (1, 1, 1, 'Accord', 2003),
+            (2, 1, 2, 'CR-V', 2014),
+            (3, 2, 3, 'Volt', 2015);
+
+INSERT INTO car(id, vin, modelid)
+    VALUES(1, '1HGCM82633A', 1),
+            (2, '5J6RM4H79EL', 2),
+            (3, '1G1RA6EH1FU', 3);
+
+INSERT INTO car_owner(id, ownerid, carid )
+    VALUES(1, 1 , 1),
+            (2, 2, 1),
+            (3, 3, 2),
+            (4, 4 , 3);
+
+INSERT INTO company_owner(id, ownerid ,companyid)
+    VALUES(1, 1, 1),
+            (2, 2, 2),
+            (3, 3, 3),
+            (4, 4, 4);
