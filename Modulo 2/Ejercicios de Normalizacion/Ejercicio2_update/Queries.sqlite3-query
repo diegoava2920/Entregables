@@ -28,22 +28,24 @@ CREATE TABLE model(
     years INT NOT NULL
 );
 
-CREATE TABLE car(
-    id INT PRIMARY KEY,
-    modelid INT REFERENCES model(id),
-    vin VARCHAR(25)
-);
-
 CREATE TABLE insurance_policy(
     id INT PRIMARY KEY,
-    carid INT REFERENCES car(id),
-    ownerid INT REFERENCES owners(id),
     companyid INT REFERENCES company(id),
     policy_code VARCHAR(25) 
 );
 
+CREATE TABLE car(
+    id INT PRIMARY KEY,
+    vin VARCHAR(25),
+    modelid INT REFERENCES model(id)
+);
 
--- SQLite
+CREATE TABLE car_info(
+    id INT PRIMARY KEY, 
+    carid INT REFERENCES car(id),
+    ownerid INT REFERENCES owners(id),
+    insurance_policy_id INT REFERENCES insurance_policy(id)
+);
 
 INSERT INTO company (id , name)
     VALUES (1, 'ABC Insurance'),
@@ -76,8 +78,14 @@ INSERT INTO car(id, vin, modelid)
             (2, '5J6RM4H79EL', 2),
             (3, '1G1RA6EH1FU', 3);
 
-INSERT INTO insurance_policy (id, carid, ownerid, companyid, policy_code)
-    VALUES(1, 1, 1, 1, 'POL12345'),
-            (2, 1, 2, 2, 'POL54321'),
-            (3, 2, 3, 3, 'POL67890'),
-            (4, 3, 4, 4, 'POL98765')
+INSERT INTO insurance_policy (id, companyid, policy_code)
+    VALUES(1, 1, 'POL12345'),
+            (2, 2, 'POL54321'),
+            (3, 3, 'POL67890'),
+            (4, 4, 'POL98765');
+
+INSERT INTO car_info(id,  carid, ownerid, insurance_policy_id)
+    VALUES(1, 1, 1, 1),
+            (2, 1, 2, 2),
+            (3, 2, 2, 3),
+            (4, 3, 4, 4);
