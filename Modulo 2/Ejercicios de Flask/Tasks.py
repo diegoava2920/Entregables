@@ -1,15 +1,13 @@
 from flask import Flask, request, jsonify
-import json
-
+from Persistencia import writeFile, readFile
+from Validation import body_validations
 
 app = Flask(__name__)
 
-with open('Tasks.json', 'r') as file:
-    tasks = json.load(file)
-        
+@app.route("/tasks")
 
-@app.route("/get")
 def get():
+    tasks = readFile('Tasks.json')
     filtered_shows = tasks
     genre_filter = request.args.get("state")
     if genre_filter:
@@ -19,75 +17,77 @@ def get():
 
     return {"data": filtered_shows}
 
-@app.route("/create", methods=["POST"])
+@app.route("/tasks", methods=["POST"])
 def create():
+    tasks = readFile('Tasks.json')
     request_body = request.json
-    if not request_body:
-        return "No se agrego ningun entry para modificar"
-
-    for task in tasks:
-        if task["id"] == request_body["id"]:
-            return "La id que esta agregando ya existe"
-        
+    id_validation = False
     try: 
-        if "title" not in request_body:
-            raise ValueError("No hay nombre en el body")
-        if "description" not in request_body:
-            raise ValueError("No hay descripcion en el body")
-        if "state" not in request_body:
-            raise ValueError("No hay estado en el body")
-        if request_body["state"] not in ["on going", "in progress", "completed"]:
-            raise ValueError("El estado no es una de las opciones correctas, por favor modifiquelo")
-        tasks.append(request_body)
-        with open('Tasks.json', 'w') as file:
-            json.dump(tasks, file)
+        if not request_body:
+            raise ValueError ("No se agrego ningun entry para agregar")
+        for task in tasks:
+            if task["id"] == request_body["id"]:
+                id_validation = True
+        if (id_validation == False):
+            body_validations(request_body)
+            tasks.append(request_body)
+            writeFile('Tasks.json' ,tasks)
+            return "Task agregado", 200
+        else:
+            raise ValueError("El id agregado ya existe")
     except ValueError as ex:
-        return jsonify(message=str(ex)), 400
+        return jsonify(message=str(ex)), 404
     except Exception as ex:
         return jsonify(message=str(ex)), 500
                 
-    return "Cambio completado"
     
 
-@app.route("/edit", methods=["POST"])
+@app.route("/tasks", methods=["PUT"])
 def edit():
+    tasks = readFile('Tasks.json')
     request_body = request.json
-    retorno = ""
-    if not request_body:
-        retorno = "No se agrego ningun entry para modificar"
-    else:
+    id_validation = False
+    try:
+        if not request_body:
+            raise ValueError ("No se agrego ningun entry para modificar")
         for task in tasks:
             if task["id"] == request_body["id"]:
-                task["title"] = request_body["title"]
-                task["description"] = request_body["description"]
-                task["state"] = request_body["state"]
-                retorno = "Cambio realizado"
-                with open("Tasks.json", "w", encoding="utf-8") as file:
-                        json.dump(tasks, file, indent=4)
-                break
-            else:
-                retorno = "No se encontro ningun id con ese nombre"
-    return retorno
-    
+                id_validation = True
+        if (id_validation == True):
+            body_validations(request_body)
+            task["title"] = request_body["title"]
+            task["description"] = request_body["description"]
+            task["state"] = request_body["state"]
+            writeFile('Tasks.json', tasks)
+            return {"Task modificado: " : request_body}, 200
+        else:
+            raise ValueError ("El id que intentas modificar no existe")
+    except ValueError as ex:
+                return jsonify(message=str(ex)), 404
+    except Exception as ex:
+        return jsonify(message=str(ex)), 500
 
-
-@app.route("/delete", methods=["DELETE"])
+@app.route("/tasks", methods=["DELETE"])
 def delete():
+    tasks = readFile('Tasks.json')
     request_body = request.json
-    retorno = ""
-    if not request_body:
-        retorno = "No se agrego ningun entry para borrar"
-    else:
-        for i,task in enumerate(tasks):
+    try:
+        if not request_body:
+            raise ValueError ("No se agrego ningun entry para modificar")
+        
+        for i, task in enumerate(tasks):
             if task["id"] == request_body["id"]:
                 del tasks[i]
-                retorno = "Cambio realizado"
-                with open("Tasks.json", "w", encoding="utf-8") as file:
-                        json.dump(tasks, file, indent=4)
-                break
-            else:
-                retorno = "No se encontro ningun id con ese nombre"
-    return retorno
+                writeFile('Tasks.json', tasks)
+                return "Task eliminada", 200
+            
+        raise ValueError ("El id que intentas modificar no existe")
+    
+    except ValueError as ex:
+                return jsonify(message=str(ex)), 404
+    except Exception as ex:
+        return jsonify(message=str(ex)), 500
+    
     
 if __name__ == "__main__":
     app.run(host="localhost", debug=True)
