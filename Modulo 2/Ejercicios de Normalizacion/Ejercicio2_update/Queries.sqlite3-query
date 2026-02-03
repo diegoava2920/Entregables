@@ -1,0 +1,91 @@
+-- SQLite
+CREATE TABLE company (
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE owners(
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    phone VARCHAR (25) NOT NULL
+);
+
+CREATE TABLE make(
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE color(
+    id INT PRIMARY KEY,
+    name VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE model(
+    id INT PRIMARY KEY,
+    makeid INT REFERENCES make(id),
+    colorid INT REFERENCES color(id),
+    name VARCHAR(25) NOT NULL,
+    years INT NOT NULL
+);
+
+CREATE TABLE insurance_policy(
+    id INT PRIMARY KEY,
+    companyid INT REFERENCES company(id),
+    policy_code VARCHAR(25) 
+);
+
+CREATE TABLE car(
+    id INT PRIMARY KEY,
+    vin VARCHAR(25),
+    modelid INT REFERENCES model(id)
+);
+
+CREATE TABLE car_info(
+    id INT PRIMARY KEY, 
+    carid INT REFERENCES car(id),
+    ownerid INT REFERENCES owners(id),
+    insurance_policy_id INT REFERENCES insurance_policy(id)
+);
+
+INSERT INTO company (id , name)
+    VALUES (1, 'ABC Insurance'),
+            (2, 'XYZ Insurance'),
+            (3, 'DEF Insurance'),
+            (4, 'GHI Insurance');
+
+INSERT INTO owners (id, name, phone)
+    VALUES (101, 'Alice', '123-456-7890'),
+            (102, 'Bob', '987-654-3210'),
+            (103, 'Claire', '555-123-4567'),
+            (104, 'Dave', '111-222-3333');
+
+INSERT INTO color (id, name)
+    VALUES (1, 'Silver'),
+            (2, 'Blue'),
+            (3, 'Red');
+
+INSERT INTO make (id, name)
+    VALUES (1, 'Honda'),
+            (2, 'Chevrolete');
+
+INSERT INTO model( id, makeid, colorid, name, years)
+    VALUES (1, 1, 1, 'Accord', 2003),
+            (2, 1, 2, 'CR-V', 2014),
+            (3, 2, 3, 'Volt', 2015);
+
+INSERT INTO car(id, vin, modelid)
+    VALUES(1, '1HGCM82633A', 1),
+            (2, '5J6RM4H79EL', 2),
+            (3, '1G1RA6EH1FU', 3);
+
+INSERT INTO insurance_policy (id, companyid, policy_code)
+    VALUES(1, 1, 'POL12345'),
+            (2, 2, 'POL54321'),
+            (3, 3, 'POL67890'),
+            (4, 4, 'POL98765');
+
+INSERT INTO car_info(id,  carid, ownerid, insurance_policy_id)
+    VALUES(1, 1, 1, 1),
+            (2, 1, 2, 2),
+            (3, 2, 2, 3),
+            (4, 3, 4, 4);
