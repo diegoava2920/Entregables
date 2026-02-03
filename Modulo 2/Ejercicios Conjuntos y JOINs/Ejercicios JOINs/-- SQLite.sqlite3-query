@@ -1,0 +1,40 @@
+-- SQLite
+SELECT books.name, author.name
+FROM Books as books 
+INNER JOIN Authors as author
+ON books.authorid = author.id;
+
+SELECT books.name
+FROM Books as books 
+LEFT JOIN Authors as author
+ON books.authorid = author.id WHERE author.name IS NULL;
+
+SELECT author.name
+FROM Authors as author 
+LEFT JOIN Books as books
+ON author.id = books.authorid WHERE books.name IS NULL;
+
+
+SELECT books.name
+FROM Books as books
+RIGHT JOIN Rents as rents
+ON books.id = rents.bookid
+GROUP BY books.name;
+
+
+SELECT books.id, books.name
+FROM Books as books
+LEFT JOIN Rents as rents
+ON books.id = rents.bookid WHERE rents.id IS NULL;
+
+
+SELECT customer.name
+FROM Rents as rents
+RIGHT JOIN Customer as customer
+ON rents.customerid = customer.id WHERE rents.customerid IS NULL;
+
+
+SELECT books.id, books.name, rents.id, rents.state
+FROM Books as books
+RIGHT JOIN Rents as rents
+ON books.id = rents.bookid  WHERE rents.state IS 'Overdue';
