@@ -1,0 +1,302 @@
+[
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "fab_year": "2018",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "fab_year": "2019",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Nissan",
+        "model": "Sentra",
+        "fab_year": "2017",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "fab_year": "2020",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Kia",
+        "model": "Rio",
+        "fab_year": "2016",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Mazda",
+        "model": "3",
+        "fab_year": "2021",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Ford",
+        "model": "Focus",
+        "fab_year": "2015",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Cruze",
+        "fab_year": "2018",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "Jetta",
+        "fab_year": "2019",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Subaru",
+        "model": "Impreza",
+        "fab_year": "2020",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "fab_year": "2015",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "fab_year": "2016",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Nissan",
+        "model": "Sentra",
+        "fab_year": "2017",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "fab_year": "2018",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Kia",
+        "model": "Rio",
+        "fab_year": "2019",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Mazda",
+        "model": "3",
+        "fab_year": "2020",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Ford",
+        "model": "Focus",
+        "fab_year": "2021",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Cruze",
+        "fab_year": "2022",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "Jetta",
+        "fab_year": "2023",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Subaru",
+        "model": "Impreza",
+        "fab_year": "2014",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "fab_year": "2015",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "fab_year": "2016",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Nissan",
+        "model": "Sentra",
+        "fab_year": "2017",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "fab_year": "2018",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Kia",
+        "model": "Rio",
+        "fab_year": "2019",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Mazda",
+        "model": "3",
+        "fab_year": "2020",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Ford",
+        "model": "Focus",
+        "fab_year": "2021",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Cruze",
+        "fab_year": "2022",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "Jetta",
+        "fab_year": "2023",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Subaru",
+        "model": "Impreza",
+        "fab_year": "2014",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "fab_year": "2015",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "fab_year": "2016",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Nissan",
+        "model": "Sentra",
+        "fab_year": "2017",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "fab_year": "2018",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Kia",
+        "model": "Rio",
+        "fab_year": "2019",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Mazda",
+        "model": "3",
+        "fab_year": "2020",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Ford",
+        "model": "Focus",
+        "fab_year": "2021",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Cruze",
+        "fab_year": "2022",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "Jetta",
+        "fab_year": "2023",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Subaru",
+        "model": "Impreza",
+        "fab_year": "2014",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "fab_year": "2015",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "fab_year": "2016",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Nissan",
+        "model": "Sentra",
+        "fab_year": "2017",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "fab_year": "2018",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Kia",
+        "model": "Rio",
+        "fab_year": "2019",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Mazda",
+        "model": "3",
+        "fab_year": "2020",
+        "car_state": "MAINTENANCE"
+    },
+    {
+        "brand": "Ford",
+        "model": "Focus",
+        "fab_year": "2021",
+        "car_state": "INACTIVE"
+    },
+    {
+        "brand": "Chevrolet",
+        "model": "Cruze",
+        "fab_year": "2022",
+        "car_state": "AVAILABLE"
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "Jetta",
+        "fab_year": "2023",
+        "car_state": "IN_RENT"
+    },
+    {
+        "brand": "Subaru",
+        "model": "Impreza",
+        "fab_year": "2014",
+        "car_state": "MAINTENANCE"
+    }
+]
