@@ -43,20 +43,17 @@ class CarRepository:
             return False
     
     def validate_an_available_car(self, car_id):
-        car_validation = False
         try:
             results = self.db_manager.execute_query(
-                "SELECT car_id, brand, model, fab_year, car_state FROM lyfter_car_rental.cars WHERE car_state = 'AVAILABLE';"
+                "SELECT car_id, brand, model, fab_year, car_state FROM lyfter_car_rental.cars WHERE car_state = 'AVAILABLE' AND car_id = %s;",
+                car_id
             )
-            formatted_results = [self._format_car(result) for result in results]
-            for car in formatted_results:
-                if(car['car_id'] == car_id):
-                    car_validation = True
-                    break
-            return car_validation
+            if(not results):
+                raise ValueError("No hay carros disponibles con ese id")
+            return True
         except Exception as error:
             print("Error validating the cars from the database: ", error)
-            return car_validation
+            return False
         
     def update_car_status(self, car_id, car_state):
         try:
@@ -116,23 +113,23 @@ class CarRepository:
             
             if car_id:
                 query += " AND car_id = %s"
-                params.append(f"%{car_id}%")
+                params.append(f"{car_id}")
 
             if brand:
                 query += " AND brand = %s"
-                params.append(f"%{brand}%")
+                params.append(f"{brand}")
 
             if model:
                 query += " AND model = %s"
-                params.append(f"%{model}%")
+                params.append(f"{model}")
 
             if fab_year:
                 query += " AND fab_year = %s"
-                params.append(f"%{fab_year}%")
+                params.append(f"{fab_year}")
 
             if car_state:
                 query += " AND car_state = %s"
-                params.append(f"%{car_state}%")
+                params.append(f"{car_state}")
 
             results = self.db_manager.execute_query(query, tuple(params))
             formatted_results = [self._format_car(result) for result in results]

@@ -1,3 +1,7 @@
+from UserRepository import UserRepository
+from CarRepository import CarRepository
+
+
 def body_user_validations(body_dir):
     if "fullname" not in body_dir:
         raise ValueError("No se agrego el nombre")
@@ -24,11 +28,17 @@ def body_car_validations(body_dir):
         raise ValueError("No se agrego el estado del carro")
     
 
-def body_rent_validations(body_dir):
+def body_rent_validations(body_dir, db_manager):
+    user_repo = UserRepository(db_manager)
+    car_repo = CarRepository(db_manager)
     if "car_id" not in body_dir:
         raise ValueError("No se agrego el carro")
     if "user_id" not in body_dir:
         raise ValueError("No se agrego el usuario")
+    print(body_dir['user_id'])
+    print(body_dir['car_id'])
+    if(user_repo.validate_an_active_user(body_dir['user_id']) == False or car_repo.validate_an_available_car(body_dir['car_id'])== False):
+        raise ValueError("El usuario o el auto agregado no estan disponibles")
     
 def change_state_user_validation(state):
     if "account_state" not in state:

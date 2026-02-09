@@ -62,19 +62,16 @@ class UserRepository:
             return False
     
     def validate_an_active_user(self, userid_renting):
-        user_validation = False
         try:
             results = self.db_manager.execute_query(
-                "SELECT user_id, fullname, email, username, passwrd, bday, account_state FROM lyfter_car_rental.users WHERE account_state = 'ACTIVE';"
+                "SELECT user_id, fullname, email, username, passwrd, bday, account_state FROM lyfter_car_rental.users WHERE account_state = 'ACTIVE' AND user_id = %s;",
+                userid_renting
             )
-            formatted_results = [self._format_user(result) for result in results]
-            for user in formatted_results:
-                if(user['user_id'] == userid_renting):
-                    user_validation = True
-                    break    
-            return user_validation
+            if(not results):
+                raise ValueError("No hay usuarios disponibles con ese id")
+            return True
         except Exception as error:
-            print("Error getting all users from the database: ", error)
+            print("Error getting the user from the database: ", error)
             return False
         
     def get_all_users(self, user_id=None, username=None, email=None, state=None):
@@ -86,19 +83,19 @@ class UserRepository:
             
             if user_id:
                 query += " AND user_id = %s"
-                params.append(f"%{user_id}%")
+                params.append(f"{user_id}")
 
             if username:
                 query += " AND username = %s"
-                params.append(f"%{username}%")
+                params.append(f"{username}")
 
             if email:
                 query += " AND email = %s"
-                params.append(f"%{email}%")
+                params.append(f"{email}")
 
             if state:
                 query += " AND account_state = %s"
-                params.append(state)
+                params.append(f'{state}')
             print(params)
             results = self.db_manager.execute_query(query, tuple(params))
 
