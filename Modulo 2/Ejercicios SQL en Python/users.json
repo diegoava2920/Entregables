@@ -1,0 +1,402 @@
+[
+    {
+        "fullname": "Carlos Mendez",
+        "email": "carlos.mendez1@gmail.com",
+        "username": "cmendez1",
+        "passwrd": "pass1234",
+        "bday": "1995-03-14",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Laura Sanchez",
+        "email": "laura.sanchez2@gmail.com",
+        "username": "lsanchez2",
+        "passwrd": "pass1234",
+        "bday": "1992-07-21",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Juan Perez",
+        "email": "juan.perez3@gmail.com",
+        "username": "jperez3",
+        "passwrd": "pass1234",
+        "bday": "1988-11-02",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Maria Rodriguez",
+        "email": "maria.rodriguez4@gmail.com",
+        "username": "mrodriguez4",
+        "passwrd": "pass1234",
+        "bday": "1999-01-19",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Andres Castillo",
+        "email": "andres.castillo5@gmail.com",
+        "username": "acastillo5",
+        "passwrd": "pass1234",
+        "bday": "1990-05-09",
+        "account_state": "SUSPENDED"
+    },
+    {
+        "fullname": "Sofia Vargas",
+        "email": "sofia.vargas6@gmail.com",
+        "username": "svargas6",
+        "passwrd": "pass1234",
+        "bday": "1997-09-17",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Daniel Mora",
+        "email": "daniel.mora7@gmail.com",
+        "username": "dmora7",
+        "passwrd": "pass1234",
+        "bday": "1985-12-28",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Paula Rojas",
+        "email": "paula.rojas8@gmail.com",
+        "username": "projas8",
+        "passwrd": "pass1234",
+        "bday": "1994-06-05",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Luis Herrera",
+        "email": "luis.herrera9@gmail.com",
+        "username": "lherrera9",
+        "passwrd": "pass1234",
+        "bday": "1989-02-11",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Natalia Campos",
+        "email": "natalia.campos10@gmail.com",
+        "username": "ncampos10",
+        "passwrd": "pass1234",
+        "bday": "1996-04-30",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Carlos Mendez",
+        "email": "carlos.mendez111@gmail.com",
+        "username": "cmendez111",
+        "passwrd": "pass1234",
+        "bday": "1995-03-14",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Laura Sanchez",
+        "email": "laura.sanchez212@gmail.com",
+        "username": "lsanchez212",
+        "passwrd": "pass1234",
+        "bday": "1992-07-21",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Juan Perez",
+        "email": "juan.perez313@gmail.com",
+        "username": "jperez313",
+        "passwrd": "pass1234",
+        "bday": "1988-11-02",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Maria Rodriguez",
+        "email": "maria.rodriguez414@gmail.com",
+        "username": "mrodriguez414",
+        "passwrd": "pass1234",
+        "bday": "1999-01-19",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Andres Castillo",
+        "email": "andres.castillo515@gmail.com",
+        "username": "acastillo515",
+        "passwrd": "pass1234",
+        "bday": "1990-05-09",
+        "account_state": "SUSPENDED"
+    },
+    {
+        "fullname": "Sofia Vargas",
+        "email": "sofia.vargas616@gmail.com",
+        "username": "svargas616",
+        "passwrd": "pass1234",
+        "bday": "1997-09-17",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Daniel Mora",
+        "email": "daniel.mora717@gmail.com",
+        "username": "dmora717",
+        "passwrd": "pass1234",
+        "bday": "1985-12-28",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Paula Rojas",
+        "email": "paula.rojas818@gmail.com",
+        "username": "projas818",
+        "passwrd": "pass1234",
+        "bday": "1994-06-05",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Luis Herrera",
+        "email": "luis.herrera919@gmail.com",
+        "username": "lherrera919",
+        "passwrd": "pass1234",
+        "bday": "1989-02-11",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Natalia Campos",
+        "email": "natalia.campos1020@gmail.com",
+        "username": "ncampos1020",
+        "passwrd": "pass1234",
+        "bday": "1996-04-30",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Carlos Mendez",
+        "email": "carlos.mendez121@gmail.com",
+        "username": "cmendez121",
+        "passwrd": "pass1234",
+        "bday": "1995-03-14",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Laura Sanchez",
+        "email": "laura.sanchez222@gmail.com",
+        "username": "lsanchez222",
+        "passwrd": "pass1234",
+        "bday": "1992-07-21",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Juan Perez",
+        "email": "juan.perez323@gmail.com",
+        "username": "jperez323",
+        "passwrd": "pass1234",
+        "bday": "1988-11-02",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Maria Rodriguez",
+        "email": "maria.rodriguez424@gmail.com",
+        "username": "mrodriguez424",
+        "passwrd": "pass1234",
+        "bday": "1999-01-19",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Andres Castillo",
+        "email": "andres.castillo525@gmail.com",
+        "username": "acastillo525",
+        "passwrd": "pass1234",
+        "bday": "1990-05-09",
+        "account_state": "SUSPENDED"
+    },
+    {
+        "fullname": "Sofia Vargas",
+        "email": "sofia.vargas626@gmail.com",
+        "username": "svargas626",
+        "passwrd": "pass1234",
+        "bday": "1997-09-17",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Daniel Mora",
+        "email": "daniel.mora727@gmail.com",
+        "username": "dmora727",
+        "passwrd": "pass1234",
+        "bday": "1985-12-28",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Paula Rojas",
+        "email": "paula.rojas828@gmail.com",
+        "username": "projas828",
+        "passwrd": "pass1234",
+        "bday": "1994-06-05",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Luis Herrera",
+        "email": "luis.herrera929@gmail.com",
+        "username": "lherrera929",
+        "passwrd": "pass1234",
+        "bday": "1989-02-11",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Natalia Campos",
+        "email": "natalia.campos1030@gmail.com",
+        "username": "ncampos1030",
+        "passwrd": "pass1234",
+        "bday": "1996-04-30",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Carlos Mendez",
+        "email": "carlos.mendez131@gmail.com",
+        "username": "cmendez131",
+        "passwrd": "pass1234",
+        "bday": "1995-03-14",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Laura Sanchez",
+        "email": "laura.sanchez232@gmail.com",
+        "username": "lsanchez232",
+        "passwrd": "pass1234",
+        "bday": "1992-07-21",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Juan Perez",
+        "email": "juan.perez333@gmail.com",
+        "username": "jperez333",
+        "passwrd": "pass1234",
+        "bday": "1988-11-02",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Maria Rodriguez",
+        "email": "maria.rodriguez434@gmail.com",
+        "username": "mrodriguez434",
+        "passwrd": "pass1234",
+        "bday": "1999-01-19",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Andres Castillo",
+        "email": "andres.castillo535@gmail.com",
+        "username": "acastillo535",
+        "passwrd": "pass1234",
+        "bday": "1990-05-09",
+        "account_state": "SUSPENDED"
+    },
+    {
+        "fullname": "Sofia Vargas",
+        "email": "sofia.vargas636@gmail.com",
+        "username": "svargas636",
+        "passwrd": "pass1234",
+        "bday": "1997-09-17",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Daniel Mora",
+        "email": "daniel.mora737@gmail.com",
+        "username": "dmora737",
+        "passwrd": "pass1234",
+        "bday": "1985-12-28",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Paula Rojas",
+        "email": "paula.rojas838@gmail.com",
+        "username": "projas838",
+        "passwrd": "pass1234",
+        "bday": "1994-06-05",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Luis Herrera",
+        "email": "luis.herrera939@gmail.com",
+        "username": "lherrera939",
+        "passwrd": "pass1234",
+        "bday": "1989-02-11",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Natalia Campos",
+        "email": "natalia.campos1040@gmail.com",
+        "username": "ncampos1040",
+        "passwrd": "pass1234",
+        "bday": "1996-04-30",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Carlos Mendez",
+        "email": "carlos.mendez141@gmail.com",
+        "username": "cmendez141",
+        "passwrd": "pass1234",
+        "bday": "1995-03-14",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Laura Sanchez",
+        "email": "laura.sanchez242@gmail.com",
+        "username": "lsanchez242",
+        "passwrd": "pass1234",
+        "bday": "1992-07-21",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Juan Perez",
+        "email": "juan.perez343@gmail.com",
+        "username": "jperez343",
+        "passwrd": "pass1234",
+        "bday": "1988-11-02",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Maria Rodriguez",
+        "email": "maria.rodriguez444@gmail.com",
+        "username": "mrodriguez444",
+        "passwrd": "pass1234",
+        "bday": "1999-01-19",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Andres Castillo",
+        "email": "andres.castillo545@gmail.com",
+        "username": "acastillo545",
+        "passwrd": "pass1234",
+        "bday": "1990-05-09",
+        "account_state": "SUSPENDED"
+    },
+    {
+        "fullname": "Sofia Vargas",
+        "email": "sofia.vargas646@gmail.com",
+        "username": "svargas646",
+        "passwrd": "pass1234",
+        "bday": "1997-09-17",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Daniel Mora",
+        "email": "daniel.mora747@gmail.com",
+        "username": "dmora747",
+        "passwrd": "pass1234",
+        "bday": "1985-12-28",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Paula Rojas",
+        "email": "paula.rojas848@gmail.com",
+        "username": "projas848",
+        "passwrd": "pass1234",
+        "bday": "1994-06-05",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Luis Herrera",
+        "email": "luis.herrera949@gmail.com",
+        "username": "lherrera949",
+        "passwrd": "pass1234",
+        "bday": "1989-02-11",
+        "account_state": "ACTIVE"
+    },
+    {
+        "fullname": "Natalia Campos",
+        "email": "natalia.campos1050@gmail.com",
+        "username": "ncampos1050",
+        "passwrd": "pass1234",
+        "bday": "1996-04-30",
+        "account_state": "ACTIVE"
+    }
+]
