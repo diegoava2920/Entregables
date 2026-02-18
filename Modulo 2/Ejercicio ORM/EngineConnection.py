@@ -7,5 +7,5 @@ Base = declarative_base()
 
 inspector = inspect(engine)
 
-Session = sessionmaker(bind=engine)
-session = Session()
+SessionM = sessionmaker(bind=engine)
+

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, update, delete
-from EngineConnection import session, Base
+from EngineConnection import SessionM, Base, inspector
 
 
 class Car(Base):
@@ -13,47 +13,66 @@ class Car(Base):
         return (f"{self.id}  {self.userid}  {self.brand}")
     
 
-    def create_car(userid, brand):
-        try:    
-            new_user = Car(userid= userid, brand=brand)
-            session.add(new_user)
-            session.commit()
-            return "Se creo un nuevo carro"
+    if (inspector.has_table('cars', schema="sqalchemy_test")):
+        print ("Ya existe la tabla de carros")
+    else:
+        print ("Se creo exitosamente la tabla de carros")
+    
+
+    def create_car(self, userid, brand):
+        try:
+            with SessionM() as session:    
+                new_user = Car(userid= userid, brand=brand)
+                session.add(new_user)
+                session.commit()
+                print(f"Se creo un nuevo carro: {brand}")
+                return True
         except Exception as error:
             print("Error adding the car table from the database: ", error)
             return False
-    
-    def modify_car(id, userid, brand):
-        try:  
-            session.execute(update(Car).where(Car.id == id).values(userid= userid, brand=brand))
-            session.commit() 
-            return "Se modifico el carro"
+
+    def modify_car(self, id, userid, brand):
+        try:
+            with SessionM() as session:  
+                session.execute(update(Car).where(Car.id == id).values(userid= userid, brand=brand))
+                session.commit()
+                print(f"Se modifico el carro {id}: {userid} , {brand}")
+                return True
         except Exception as error:
             print("Error modifying the car table from the database: ", error)
             return False
-    
-    def delete_car(id):
-        try:  
-            session.execute(delete(Car).where(Car.id == id))
-            session.commit() 
-            return "Se elimino el carro"
+
+
+    def delete_car(self, id):
+        try:
+            with SessionM() as session:  
+                session.execute(delete(Car).where(Car.id == id))
+                session.commit()
+                print(f"Se elimino el carro: {id}")
+                return True
         except Exception as error:
             print("Error deleting the car table from the database: ", error)
             return False
 
-    def add_user_to_car(p_id, userid):
+
+    def add_user_to_car(self, p_id, userid):
         try:
-            session.execute(update(Car).where(Car.id == p_id).values(userid = userid))
-            session.commit()
-            return "Se agrego el usuario al carro"
+            with SessionM() as session:
+                session.execute(update(Car).where(Car.id == p_id).values(userid = userid))
+                session.commit()
+                print(f"Se agrego el usuario al carro: Usuario {userid} para Carro {p_id}")
+                return True
         except Exception as error:
             print("Error modifying the car table from the database: ", error)
             return False
-    
-    def all_cars():
-        cars = session.query(Car).all()
 
-        for car in cars:
-            print(car)
 
-        return cars
+    def all_cars(self):
+        print("\nCarros:")
+        with SessionM() as session:
+            cars = session.query(Car).all()
+
+            for car in cars:
+                print(car)
+
+            return cars
