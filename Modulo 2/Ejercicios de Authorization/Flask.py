@@ -1,12 +1,17 @@
 from db import DB_Manager
-from JWT_Manager import JWT_Manager
+from JWT_Manager_RS256 import JWT_Manager
 from flask import Flask, request, Response, jsonify
 from Validations import create_product_validation, update_product_validation, create_recipe_validation
 
+with open("private.pem", "rb") as f:
+    private_key = f.read()
+
+with open("public.pem", "rb") as f:
+    public_key = f.read()
+
 app = Flask("user-service")
 db_manager = DB_Manager()
-jwt_manager = JWT_Manager('trespatitos', 'HS256')
-
+jwt_manager = JWT_Manager(private_key, public_key)
 
 @app.route("/liveness")
 def liveness():
@@ -45,7 +50,7 @@ def login():
         result = db_manager.get_user(data.get('username'), data.get('password'))
 
         if(result == None):
-            return Response(status=403)
+            return Response(status=401)
         else:
             user_id = result[0]
             token = jwt_manager.encode({'id':user_id})
@@ -143,13 +148,24 @@ def get_recipe_per_user():
 
 @app.route('/sell', methods=["POST"])
 def product_sell():
-    request_body = request.json
-    if not request_body:
-        return jsonify(error="No se agrego ningun entry para agregar") , 422
-    create_recipe_validation(request_body)
-    if(db_manager.create_recipe(request_body['user_id'], request_body['product_id']) == True):
-        return "Venta agregado", 201
-    else:
-        return jsonify(error="Hubo un error haciendo la venta, favor revisar la base de datos" ), 400
+    try:
+        token = request.headers.get('Authorization')
+        if(token is not None):
+            request_body = request.json
+            if not request_body:
+                return jsonify(error="No se agrego ningun entry para agregar") , 422
+
+            test = token.replace("Bearer ","")
+            decoded = jwt_manager.decode(test)
+            user_id = decoded['id']                
+            create_recipe_validation(request_body)
+            if(db_manager.create_recipe(request_body[user_id], request_body['product_id']) == True):
+                return "Venta agregado", 201
+            else:
+                return jsonify(error="Hubo un error haciendo la venta, favor revisar la base de datos" ), 400
+        else:
+            return Response(status=403)
+    except Exception as e:
+        return Response(status=500)
 if __name__ == "__main__":
     app.run(host="localhost", debug=True)
