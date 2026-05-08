@@ -2,6 +2,7 @@ from db import DB_Manager
 from JWT_Manager_RS256 import JWT_Manager
 from flask import Flask, request, Response, jsonify
 from Validations import create_product_validation, update_product_validation, create_recipe_validation
+from CacheRedis import CacheManager
 
 with open("private.pem", "rb") as f:
     private_key = f.read()
@@ -12,6 +13,10 @@ with open("public.pem", "rb") as f:
 app = Flask("user-service")
 db_manager = DB_Manager()
 jwt_manager = JWT_Manager(private_key, public_key)
+cache_manager = CacheManager( host = "placeholder", port = 00000, password = "Ijxu2xygtt6VZoo4aMk8K7KsRVNhUkZA",)
+
+def generate_cache_products_id_key(id):
+    return f'getProduct-id{id}'
 
 @app.route("/liveness")
 def liveness():
@@ -93,8 +98,10 @@ def product_manager_system(unit):
                 if (unit not in valid_units ):
                     return jsonify(error="PAGE NOT FOUND" ), 404
                 
-                if(request.method == "GET" and unit == "lists"):
+                if(request.method == "GET" and unit == "lists"):                    
                     filtered_shows = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                    for prod in filtered_shows:
+                        cache_manager.store_data(prod["id"], prod["name"])
                     return {"data": filtered_shows}
                 
                 elif(request.method == "POST" and unit == "create"):
@@ -102,6 +109,9 @@ def product_manager_system(unit):
                             return jsonify(error="No se agrego ningun entry para agregar") , 422
                         create_product_validation(request_body)
                         if(db_manager.insert_product(request_body['name'], request_body['date'], request_body['amount']) == True):
+                            filtered_shows = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                            for prod in filtered_shows:
+                                cache_manager.store_data(prod["id"], prod["name"])
                             return "Producto agregado", 201
                         else:
                             return jsonify(error="Hubo un error agregando al producto, favor revisar la base de datos" ), 400
@@ -111,6 +121,8 @@ def product_manager_system(unit):
                             return jsonify(error="No se agrego ningun entry para modificar") , 422
                         update_product_validation(request_body)
                         if(db_manager.update_product_by_id(request_body['id'], request_body['name'], request_body['date'], request_body['amount']) == True):
+                            cache_manager.delete_data(request_body['id'])
+                            cache_manager.store_data(request_body['id'], request_body['name'])
                             return "Estado del producto fue actualizado", 200
                         else:
                             return jsonify(error="Hubo un error actualizando al producto, favor revisar la base de datos" ), 400
@@ -119,6 +131,7 @@ def product_manager_system(unit):
                         if not request_body:
                             return jsonify(error="No se agrego ningun entry para borrar") , 422
                         if(db_manager.delete_product_by_id(request_body['id']) == True):
+                            cache_manager.delete_data(request_body['id'])
                             return "El producto fue eliminado", 200
                         else:
                             return jsonify(error="Hubo un error eliminando al producto, favor revisar la base de datos" ), 400
