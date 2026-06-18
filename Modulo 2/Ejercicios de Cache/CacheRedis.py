@@ -1,5 +1,5 @@
 import redis
-
+import json
 
 class CacheManager:
     def __init__(self, host, port, password, *args, **kwargs):
@@ -16,10 +16,13 @@ class CacheManager:
 
     def store_data(self, key, value, time_to_live=None):
         try:
+
+            serialized_value = json.dumps(value)
+
             if time_to_live is None:
-                self.redis_client.set(key, value)
+                self.redis_client.set(key, serialized_value)
             else:
-                self.redis_client.setex(key, time_to_live, value)
+                self.redis_client.setex(key, time_to_live, serialized_value)
         except redis.RedisError as error:
             print(f"An error ocurred while storing data in Redis: {error}")
 
@@ -34,6 +37,14 @@ class CacheManager:
         except redis.RedisError as error:
             print(f"An error ocurred while checking a key in Redis: {error}")
             return False, None
+    
+    def get_all_keys(self):
+        try:
+            keys = [key.decode('utf-8') for key in self.redis_client.scan_iter("*")]
+            return keys
+        except redis.RedisError as error:
+            print(f"Error al obtener las llaves: {error}")
+            return []
 
     def get_data(self, key):
         try:
