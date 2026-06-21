@@ -102,11 +102,17 @@ def get_product_list():
                             (date and date == p.get('date')) or \
                             (amount and str(amount) == str(p.get('amount'))):
                                 filtered_cache_data.append(p)
+                    if not  filtered_cache_data:
+                        filtered_cache_data = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                        for p in filtered_cache_data:
+                            cache_manager.store_data(p['id'], p)
+                    print(filtered_cache_data)
                     return {"data": filtered_cache_data}
                 else:
                     return {"data": cache_data}
-        else:
-            return Response(status=403)
+            else:
+                return Response(status=403)
+        return Response(status=403)
     except ValueError as ex:
         return jsonify(message=str(ex)), 404
     except Exception as ex:
