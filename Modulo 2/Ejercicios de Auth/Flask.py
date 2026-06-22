@@ -2,16 +2,21 @@ from db import DB_Manager
 from JWT_Manager_RS256 import JWT_Manager
 from flask import Flask, request, Response, jsonify
 from Validations import create_product_validation, update_product_validation, create_recipe_validation
+from CacheRedis import CacheManager
 
-with open("private.pem", "rb") as f:
+with open("private_key.pem", "rb") as f:
     private_key = f.read()
 
-with open("public.pem", "rb") as f:
+with open("public_key.pem", "rb") as f:
     public_key = f.read()
 
 app = Flask("user-service")
 db_manager = DB_Manager()
 jwt_manager = JWT_Manager(private_key, public_key)
+cache_manager = CacheManager( host = "oatmeal-birth-canvas-91552.db.redis.io", port = 13570, password = "aif5uYjnyvJ8mUaSAX9cgwdTCquicNOZ",)
+
+def generate_cache_products_id_key(id):
+    return f'getProduct-id{id}'
 
 @app.route("/liveness")
 def liveness():
@@ -72,8 +77,8 @@ def me():
     except Exception as e:
         return Response(status=500)
 
-@app.route('/product/<unit>', methods=["GET", "POST", "PATCH", "DELETE"])
-def product_manager_system(unit):
+#@app.route('/product/<unit>', methods=["GET", "POST", "PATCH", "DELETE"])
+#def product_manager_system(unit):
     request_body = request.json
     auth_token = request.headers.get('Authorization')
     try:
@@ -93,8 +98,10 @@ def product_manager_system(unit):
                 if (unit not in valid_units ):
                     return jsonify(error="PAGE NOT FOUND" ), 404
                 
-                if(request.method == "GET" and unit == "lists"):
+                if(request.method == "GET" and unit == "lists"):                    
                     filtered_shows = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                    for prod in filtered_shows:
+                        cache_manager.store_data(prod["id"], prod["name"])
                     return {"data": filtered_shows}
                 
                 elif(request.method == "POST" and unit == "create"):
@@ -102,6 +109,9 @@ def product_manager_system(unit):
                             return jsonify(error="No se agrego ningun entry para agregar") , 422
                         create_product_validation(request_body)
                         if(db_manager.insert_product(request_body['name'], request_body['date'], request_body['amount']) == True):
+                            filtered_shows = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                            for prod in filtered_shows:
+                                cache_manager.store_data(prod["id"], prod["name"])
                             return "Producto agregado", 201
                         else:
                             return jsonify(error="Hubo un error agregando al producto, favor revisar la base de datos" ), 400
@@ -111,6 +121,8 @@ def product_manager_system(unit):
                             return jsonify(error="No se agrego ningun entry para modificar") , 422
                         update_product_validation(request_body)
                         if(db_manager.update_product_by_id(request_body['id'], request_body['name'], request_body['date'], request_body['amount']) == True):
+                            cache_manager.delete_data(request_body['id'])
+                            cache_manager.store_data(request_body['id'], request_body['name'])
                             return "Estado del producto fue actualizado", 200
                         else:
                             return jsonify(error="Hubo un error actualizando al producto, favor revisar la base de datos" ), 400
@@ -119,6 +131,7 @@ def product_manager_system(unit):
                         if not request_body:
                             return jsonify(error="No se agrego ningun entry para borrar") , 422
                         if(db_manager.delete_product_by_id(request_body['id']) == True):
+                            cache_manager.delete_data(request_body['id'])
                             return "El producto fue eliminado", 200
                         else:
                             return jsonify(error="Hubo un error eliminando al producto, favor revisar la base de datos" ), 400
@@ -130,6 +143,121 @@ def product_manager_system(unit):
         return jsonify(message=str(ex)), 404
     except Exception as ex:
         return jsonify(message=str(ex)), 500
+    
+@app.route('/product/lists', methods=["GET"])
+def get_product_list():
+    auth_token = request.headers.get('Authorization')
+    try:
+        if(auth_token is not None):
+            test = auth_token.replace("Bearer ","").strip()
+            decoded = jwt_manager.decode(test)
+            user_id = decoded['id']
+            user = db_manager.get_user_by_id(user_id)
+            if(user[2] == "admin"):
+                id = request.args.get("id")
+                name = request.args.get("name")
+                date = request.args.get("date")
+                amount = request.args.get("amount")
+                filtered_shows = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                for prod in filtered_shows:
+                    cache_manager.store_data(prod["id"], prod["name"])
+            return {"data": filtered_shows}
+        else:
+            return Response(status=403)
+    except ValueError as ex:
+        return jsonify(message=str(ex)), 404
+    except Exception as ex:
+        return jsonify(message=str(ex)), 500
+    
+@app.route('/product/create', methods=["POST"])
+def create_product():
+    auth_token = request.headers.get('Authorization')
+    request_body = request.json
+    try:
+        if(auth_token is not None):
+            test = auth_token.replace("Bearer ","")
+            decoded = jwt_manager.decode(test)
+            user_id = decoded['id']
+            user = db_manager.get_user_by_id(user_id)
+
+            if(user[2] == "admin"):
+                
+                if not request_body:
+                    return jsonify(error="No se agrego ningun entry para agregar") , 422
+                
+                create_product_validation(request_body)
+                
+                if(db_manager.insert_product(request_body['name'], request_body['date'], request_body['amount']) == True):
+                    return "Producto agregado", 201
+                else:
+                    return jsonify(error="Hubo un error agregando al producto, favor revisar la base de datos" ), 400
+            else:
+                return Response(status=403)
+        else:
+            return Response(status=403)
+    except ValueError as ex:
+        return jsonify(message=str(ex)), 404
+    except Exception as ex:
+        return jsonify(message=str(ex)), 500
+
+@app.route('/product/update', methods=["PATCH"])
+def update_product():
+    auth_token = request.headers.get('Authorization')
+    request_body = request.json
+    try:
+        if(auth_token is not None):
+            test = auth_token.replace("Bearer ","")
+            decoded = jwt_manager.decode(test)
+            user_id = decoded['id']
+            user = db_manager.get_user_by_id(user_id)
+            if(user[2] == "admin"):
+
+                if not request_body:
+                    return jsonify(error="No se agrego ningun entry para modificar") , 422
+                update_product_validation(request_body)
+                if(db_manager.update_product_by_id(request_body['id'], request_body['name'], request_body['date'], request_body['amount']) == True):
+                    cache_manager.delete_data(request_body['id'])
+                    cache_manager.store_data(request_body['id'], request_body['name'])
+                    return "Estado del producto fue actualizado", 200
+                else:
+                    return jsonify(error="Hubo un error actualizando al producto, favor revisar la base de datos" ), 400
+            else:
+                return Response(status=403)
+        else:
+            return Response(status=403)
+    except ValueError as ex:
+        return jsonify(message=str(ex)), 404
+    except Exception as ex:
+        return jsonify(message=str(ex)), 500
+
+@app.route('/product/delete', methods=["DELETE"])
+def delete_product():
+    auth_token = request.headers.get('Authorization')
+    request_body = request.json
+    try:
+        if(auth_token is not None):
+            test = auth_token.replace("Bearer ","")
+            decoded = jwt_manager.decode(test)
+            user_id = decoded['id']
+            user = db_manager.get_user_by_id(user_id)
+            if(user[2] == "admin"):
+
+                if not request_body:
+                    return jsonify(error="No se agrego ningun entry para borrar") , 422
+                if(db_manager.delete_product_by_id(request_body['id']) == True):
+                    cache_manager.delete_data(request_body['id'])
+                    return "El producto fue eliminado", 200
+                else:
+                    return jsonify(error="Hubo un error eliminando al producto, favor revisar la base de datos" ), 400
+            else:
+                return Response(status=403)
+        else:
+            return Response(status=403)
+    except ValueError as ex:
+        return jsonify(message=str(ex)), 404
+    except Exception as ex:
+        return jsonify(message=str(ex)), 500
+
 
 @app.route('/recipe', methods=["GET"])
 def get_recipe_per_user():
