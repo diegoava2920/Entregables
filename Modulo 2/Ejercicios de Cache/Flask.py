@@ -76,7 +76,7 @@ def me():
     except Exception as e:
         return Response(status=500)
     
-@app.route('/product/lists', methods=["GET"])
+@app.route('/product', methods=["GET"])
 def get_product_list():
     auth_token = request.headers.get('Authorization')
     try:
@@ -109,6 +109,9 @@ def get_product_list():
                     print(filtered_cache_data)
                     return {"data": filtered_cache_data}
                 else:
+                    cache_data = db_manager.get_product(id=id, name=name, date=date, amount=amount)
+                    for p in cache_data:
+                            cache_manager.store_data(p['id'], p)
                     return {"data": cache_data}
             else:
                 return Response(status=403)
