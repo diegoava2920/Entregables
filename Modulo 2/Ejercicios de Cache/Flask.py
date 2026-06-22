@@ -14,7 +14,7 @@ with open("public_key.pem", "rb") as f:
 app = Flask("user-service")
 db_manager = DB_Manager()
 jwt_manager = JWT_Manager(private_key, public_key)
-cache_manager = CacheManager( host = "oatmeal-birth-canvas-91552.db.redis.io", port = 13570, password = "aif5uYjnyvJ8mUaSAX9cgwdTCquicNOZ",)
+cache_manager = CacheManager( host = "PLACEHOLDER", port = 000, password = "pass",)
 
 
 @app.route("/liveness")
@@ -121,7 +121,7 @@ def get_product_list():
     except Exception as ex:
         return jsonify(message=str(ex)), 500
     
-@app.route('/product/create', methods=["POST"])
+@app.route('/product', methods=["POST"])
 def create_product():
     auth_token = request.headers.get('Authorization')
     request_body = request.json
@@ -151,7 +151,7 @@ def create_product():
     except Exception as ex:
         return jsonify(message=str(ex)), 500
 
-@app.route('/product/update', methods=["PATCH"])
+@app.route('/product', methods=["PATCH"])
 def update_product():
     auth_token = request.headers.get('Authorization')
     request_body = request.json
@@ -183,7 +183,7 @@ def update_product():
     except Exception as ex:
         return jsonify(message=str(ex)), 500
 
-@app.route('/product/delete', methods=["DELETE"])
+@app.route('/product', methods=["DELETE"])
 def delete_product():
     auth_token = request.headers.get('Authorization')
     request_body = request.json
